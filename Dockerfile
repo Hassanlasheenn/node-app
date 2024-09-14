@@ -10,8 +10,14 @@ WORKDIR /app
 # it is considered as an optimization
 COPY package.json .
 
-# Install the Node.js dependencies defined in package.json
-RUN npm install
+ARG NODE_ENV
+
+# run npm install depending on the enviornment either 
+# production or development
+RUN if [ "${NODE_ENV}" = "production"]; \
+    then npm install --only=production; \
+    else npm install; \
+    fi
 
 # Copy all the files from the current directory to the working directory in the container
 COPY . .
