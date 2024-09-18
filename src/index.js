@@ -11,13 +11,12 @@ const app = express();
 const REDIS_PORT = '6379';
 const REDIS_HOST = 'redis';
 const redisClient = redis.createClient({
-  url: `redis://${REDIS_HOST}:${REDIS_PORT}`
+  url: `redis://${REDIS_HOST}:${REDIS_PORT}`,
 });
 redisClient.on('error', (err) => console.log('redis client error', err));
 redisClient.on('connect', () => console.log('connected to redis'));
 
 redisClient.connect();
-
 
 // connect to postgres db
 // const DB_USER = 'root';
@@ -36,9 +35,6 @@ redisClient.connect();
 //   .then(() => console.log('connected to postgres database'))
 //   .catch((err) => console.log('failed to connect to postgres db', err));
 
-
-
-
 // connect to mongo db
 const DB_USER = 'root';
 const DB_PASSWORD = 'example';
@@ -53,7 +49,7 @@ mongoose
 
 app.get('/', (req, res) => {
   redisClient.set('products', 'products...');
-  res.send('<h1>Hey Hassan!</h1>');
+  res.send('<h1>Hey Hassan! from aws</h1>');
 });
 
 app.get('/data', async (req, res) => {
